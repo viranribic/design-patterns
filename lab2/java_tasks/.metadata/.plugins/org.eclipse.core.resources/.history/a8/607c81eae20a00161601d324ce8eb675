@@ -1,0 +1,23 @@
+package test;
+
+public class Concrete implements IAll {
+
+	@Override
+	public int i1method() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int i2method() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int i3method() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

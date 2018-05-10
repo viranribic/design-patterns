@@ -1,0 +1,31 @@
+//Svi odgovori pisani su prema kodu promatranom u task4_demangled.s datoteci.
+
+Pronađi dijelove assemblerskog kôda u kojima se odvija alociranje memorije za objekte poc i *pb.
+
+Objekt poc alocira se na sistemskom stogu na adresi 148. Objekt pb alocira se na heapu i poziv za njegovo alociranje provodi se na liniji 151. To poziva konstruktor na adresi 103. 
+
+Objasni razliku u načinu alociranja tih objekata.
+
+Objekt poc lokalana je varijabla funkcije main i u skladu s tim njezina se podaci cuvaju na sistemskom stogu
+i brisu se prilikom povratka iz potprograma. 
+
+Pronađi dio kôda u assemblerskom kôdu koji je zadužen za poziv konstruktora objekta poc.
+
+Konstruktor objekta proc proteze se od adrese 103 do adrese 121. 
+
+Pronađi dio kôda u assemblerskom kôdu koji je zadužen za poziv konstruktora objekta *pb. Razmotri kako se 
+točno izvršava taj kôd. Što se u njemu događa?
+
+Taj dio koda ubuhvaca samo inicjalizaciju varijable klase. Kako konstruktor nije definiran, ne postoji niti njegov poziv. Da je kojim slucajem razred nasljedivao drugi, konstruktor podrazreda bi se sastojao od poziva konstruktora nadrazreda.
+
+Promotri kako je prevoditelj izveo pozive Base::set i PlainOldClass::set. Objasni razliku između izvedbi tih dvaju poziva. Koji od ta dva poziva je moguće obaviti uz manje instrukcija? Za koju od te dvije izvedbe bi optimirajući prevoditelj mogao generirati kôd bez instrukcije CALL odnosno umetanjem kôda (inlining)?
+
+Poziv PlainOldClass::set provodi se staticki posto ta metoda nije virtualna. Program jednostavno izvrsava
+call sa potrebnim parametrima na unaprijed poznatu adresu. 
+Poziv Base::set provodi se na iduci nacin: i. Najprije se dohvati referenca (adresa) pozivanog objekta,
+zatim se sa nje dohvaca tablica virtualnih funkcija koja je na nultoj poziciji objekta iz cega slijedi pohrana odredisne adrese u edx registar. Nakon sto se postave potrebni ulazni parametri poziva se procedura sa lokacije
+edx.
+
+Pronađite asemblerski kôd za definiciju i inicijalizaciju tablice virtualnih funkcija razreda CoolClass.
+
+Od adrese 210 do adrese 128 (ukljucivo).

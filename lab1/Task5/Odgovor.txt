@@ -1,0 +1,41 @@
+ Ova vježba ukazuje na različito ponašanje polimorfnih poziva tijekom i nakon završene konstrukcije objekta. Objasnite ispis programa analizirajući prevedeni strojni kod. Obratite pažnju na to tko, kada i gdje postavlja/modificira pokazivač na tablicu virtualnih funkcija.
+
+ Kada se izda zahtjev za konstrukcijom novog objekta, on se provodi na idući način: 
+ i. Po ulasku u konstruktor razreda pozovi konstruktor nadrazreda.
+ ii. Ako nema nadrazreda izvedi sve instrukcije u trenutnom razredu te se zatim vrati u razred djeteta.
+
+ Stablo aktivaciaj u ovom slučaju izgleda ovako:
+
+ -Derived();					| poziv iz main()
+ --Base();						| poziv super() iz konstruktora Derived()
+ ---metoda();					| poziv iz Base()
+ ----virtualnaMetoda();			| poziv iz Base::metoda()
+ --metoda();					| poziv iz Derived()
+ ---virtualnaMetoda();			| poziv iz Derived::metoda()
+ -metoda()						| poziv iz main()
+ --virtualnaMetoda();			| poziv iz Derived::metoda()
+
+
+ main()
+ 	->Derived()
+ 		->Base()
+ 			->metoda()
+ 				~printf("Metoda kaze: ");
+ 				->base_vTable:virtualnaMetoda()
+ 				~printf("ja sam bazna implementacija!\n");
+ 				<- ret
+ 			<-ret
+ 		->metoda()
+ 			~printf("Metoda kaze: ");
+ 			->derived_vTable:virtualnaMetoda()
+ 			~printf("ja sam izvedena implementacija!\n");
+ 			<- ret
+ 		<- ret
+ 	<- ret
+ 	->(pd)metoda()
+	~printf("Metoda kaze: ");
+ 		->derived_vTable:virtualnaMetoda()
+ 		~printf("ja sam izvedena implementacija!\n");
+ 		<- ret
+ 	<- ret
+ <- ret

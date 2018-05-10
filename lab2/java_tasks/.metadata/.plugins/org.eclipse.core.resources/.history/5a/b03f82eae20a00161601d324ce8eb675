@@ -1,0 +1,6 @@
+package test;
+
+public interface IAll extends I1, I2{
+
+	int i3method();
+}

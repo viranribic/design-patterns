@@ -1,0 +1,7 @@
+package test;
+
+public interface I1 {
+
+	
+	int i1method();
+}

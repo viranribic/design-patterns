@@ -1,0 +1,6 @@
+package test;
+
+public interface I2 {
+
+	int i2method();
+}

@@ -1,0 +1,3 @@
+Razred PlainOldClass ima samo jednu int vrijednost pa je velicina tog razreda 4B.
+Razred CoolClass takoderj ima int varijablu u svojoj strukturi, ali on takodjer navodi postojanje
+dviju virutalnih funkcija pohranjenih u virtualnoj tablici, koja cini pokazivac od dodatna 4B za taj razred.
